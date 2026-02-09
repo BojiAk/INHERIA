@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghid formular • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+    <a href="cos.html" class="cart-link" aria-label="Coș">
+      <span class="cart-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+          <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="cart-badge" data-cart-badge></span>
+    </a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-title">Ghid: Formularul INHERIA</h1>
+      <p class="section-subtitle">
+        Formularul INHERIA este primul pas către un stil de viață mai echilibrat. Prin completarea lui,
+        ne oferi informații esențiale despre tine, rutina ta zilnică și obiectivele tale.
+        Echipa noastră analizează fiecare formular și revine prin email pentru clarificări,
+        recomandări personalizate și pașii următori. Totul se desfășoară chiar de acasă, simplu.
+      </p>
+
+      <div class="guide-grid">
+        <article class="card">
+          <h2 class="guide-title">📄 Pagina 1 – Despre tine & obiective</h2>
+
+          <h3 class="guide-sub">Date personale</h3>
+          <ul class="guide-list">
+            <li>Nume și prenume</li>
+            <li>Vârsta</li>
+            <li>Sex</li>
+            <li>Înălțime</li>
+            <li>Greutate</li>
+            <li>Email</li>
+            <li>Telefon (opțional, pentru clarificări rapide)</li>
+          </ul>
+
+          <h3 class="guide-sub">Obiective</h3>
+          <ul class="guide-list">
+            <li>Care este obiectivul tău principal?</li>
+            <li>Unde ai vrea să ajungi?</li>
+            <li>În cât timp ți-ai dori să vezi rezultate?</li>
+            <li>Ce ești dispus/ă să faci pentru a ajunge acolo?</li>
+          </ul>
+
+          <h3 class="guide-sub">Experiențe anterioare</h3>
+          <ul class="guide-list">
+            <li>Ai mai urmat diete sau programe?</li>
+            <li>Cum a fost experiența ta?</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2 class="guide-title">📄 Pagina 2 – Stil de viață & sănătate</h2>
+
+          <h3 class="guide-sub">Rutină</h3>
+          <ul class="guide-list">
+            <li>Cât de des faci mișcare?</li>
+            <li>Ce tip de mișcare practici?</li>
+            <li>Cum arată alimentația ta într-o zi obișnuită?</li>
+            <li>Câte mese ai pe zi?</li>
+            <li>Bei suficientă apă?</li>
+          </ul>
+
+          <h3 class="guide-sub">Sănătate</h3>
+          <ul class="guide-list">
+            <li>Urmezi tratamente medicamentoase?</li>
+            <li>Ai alergii cunoscute?</li>
+            <li>Nivelul tău de stres</li>
+            <li>Pentru femei: ești însărcinată sau alăptezi?</li>
+          </ul>
+
+          <h3 class="guide-sub">Produse</h3>
+          <ul class="guide-list">
+            <li>Ce tip de suplimente te interesează?</li>
+            <li>Ai fi deschis/ă să incluzi produse sau snack-uri INHERIA?</li>
+            <li>da / nu / vreau să discut mai întâi</li>
+          </ul>
+
+          <h3 class="guide-sub">Mesaj final</h3>
+          <ul class="guide-list">
+            <li>Este ceva important ce ai vrea să știm despre tine?</li>
+            <li>☑️ Sunt de acord să fiu contactat/ă prin email sau telefon pentru clarificări.</li>
+          </ul>
+        </article>
+      </div>
+
+      <section class="section soft" style="padding: 28px 0; margin-top: 18px;">
+        <div class="container">
+          <h2 class="section-title" style="margin-bottom: 10px;">Ce urmează după formular</h2>
+          <ol class="guide-steps">
+            <li>Clientul trimite formularul.</li>
+            <li>Echipa INHERIA îl analizează.</li>
+            <li>Clientul primește email cu clarificări, întrebări suplimentare și o propunere de produse/program.</li>
+            <li>Dacă e nevoie, se solicită analize.</li>
+            <li>Abia apoi se creează recomandarea finală.</li>
+          </ol>
+
+          <div class="guide-cta">
+            <a class="btn primary" href="formular.html">Începe formularul</a>
+            <a class="btn ghost" href="contact.html">Am o întrebare</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> INHERIA</p>
+    <div class="footer-links">
+      <a href="produse.html">Produse</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

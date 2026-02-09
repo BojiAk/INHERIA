@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+ <header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+  <a href="cos.html" class="cart-link" aria-label="Coș">
+  <span class="cart-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+      <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+    </svg>
+  </span>
+
+  <span class="cart-badge" data-cart-badge></span>
+</a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Scrie-ne si revenim cat mai repede.</p>
+
+        <form class="form" action="https://formspree.io/f/xbdknnqr" method="POST">
+          <label>
+            Nume
+            <input type="text" name="nume" placeholder="Numele tau" required>
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="email@exemplu.com" required>
+          </label>
+
+          <label>
+            Mesaj
+            <textarea name="mesaj" rows="5" placeholder="Cu ce te putem ajuta?" required></textarea>
+          </label>
+
+          <button class="btn primary" type="submit">Trimite</button>
+          <p class="hint">* Formularul este conectat (Formspree).</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> INHERIA</p>
+      <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+        <a href="produse.html">Produse</a>
+        <a href="despre.html">Despre</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

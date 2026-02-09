@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Despre • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+ <header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+   <a href="cos.html" class="cart-link" aria-label="Coș">
+  <span class="cart-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+      <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+    </svg>
+  </span>
+
+  <span class="cart-badge" data-cart-badge></span>
+</a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+       <h2 class="section-title">Bine ai venit la Inheria</h2>
+<p class="section-subtitle">
+  La Inheria, credem că fiecare persoană merită soluții care să îi aducă echilibru,
+  sănătate și bucurie în viața de zi cu zi.
+</p>
+
+<p>
+  Am creat un spațiu în care găsești produse și servicii personalizate, menite să te
+  ajute să te simți bine în propriul corp și să te bucuri de fiecare moment.
+</p>
+
+<div class="cards">
+  <article class="card">
+    <h3>Diete & programe</h3>
+    <p>
+      Ne concentrăm pe diete și programe pentru slăbit, eficiente și ușor de integrat
+      în stilul tău de viață.
+    </p>
+  </article>
+
+  <article class="card">
+    <h3>Suplimente naturale</h3>
+    <p>
+      Oferim suplimente și pastile naturale care completează programele noastre și
+      susțin energia și vitalitatea zilnică.
+    </p>
+  </article>
+
+  <article class="card">
+    <h3>Cosmetice & handmade</h3>
+    <p>
+      Dezvoltăm cosmetice pe bază de plante și produse handmade, fiecare creat cu grijă,
+      originalitate și suflet.
+    </p>
+  </article>
+</div>
+
+<p class="section-subtitle" style="margin-top:32px">
+  Scopul nostru este simplu: să aducem bucurie, sănătate și echilibru în viața ta,
+  prin produse naturale, de calitate și cu un strop de creativitate.
+</p>
+</main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> INHERIA</p>
+      <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+        <a href="produse.html">Produse</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

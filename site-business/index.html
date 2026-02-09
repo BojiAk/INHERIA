@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="navbar">
+   <a class="logo" href="index.html">
+  <img src="images/logo.png" alt="Inheria logo">
+</a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Acasă</a>
+      <a href="despre.html">Despre</a>
+      <a href="produse.html">Produse</a>
+
+    <a href="cos.html" class="cart-link" aria-label="Coș">
+  <span class="cart-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+      <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+    </svg>
+  </span>
+  <span class="cart-badge" data-cart-badge></span>
+</a>
+
+      <a href="contact.html" class="nav-cta">Contact</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Meniu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+<section class="hero section">
+  <div class="hero-text">
+    <p class="badge">Sănătate & Natură <p>
+
+    <h1>Bine ai venit la INHERIA 🌿</h1>
+
+    <p class="sub">
+      Soluții simple și naturale pentru un stil de viață echilibrat:
+      programe de nutriție, produse atent alese și creații handmade cu personalitate.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn primary" href="produse.html">Vezi produsele</a>
+      <a class="btn ghost" href="despre.html">Despre INHERIA</a>
+    </div>
+
+    <p class="hero-note">
+      Calitate, claritate și o experiență ușor de folosit.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider divider-arc" aria-hidden="true"></div>
+
+<section class="section section-cta">
+  <div class="container cta">
+    <div>
+      <h2 class="section-title">Vrei recomandări personalizate?</h2>
+      <p class="section-subtitle" style="margin-bottom:0;">
+        Completează formularul, iar echipa noastră revine prin email cu pașii următori.
+      </p>
+    </div>
+
+    <a class="btn ghost" href="ghid-formular.html">Cum funcționează formularul</a>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> INHERIA</p>
+      <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+        <a href="produse.html">Produse</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

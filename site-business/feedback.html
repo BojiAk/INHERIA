@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+  <a href="cos.html" class="cart-link" aria-label="Coș">
+  <span class="cart-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+      <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+    </svg>
+  </span>
+  <span class="cart-badge" data-cart-badge></span>
+</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Feedback</h2>
+      <p class="section-subtitle">Spune-ne cum ți s-a părut experiența pe site.</p>
+
+      <form class="form" id="feedbackForm">
+        <label>
+          Nume (opțional)
+          <input name="name" placeholder="Numele tău">
+        </label>
+
+        <label>
+          Rating (1–5)
+          <input required type="number" name="rating" min="1" max="5" placeholder="5">
+        </label>
+
+        <label>
+          Mesaj
+          <textarea required name="message" rows="5" placeholder="Ce ai îmbunătăți?"></textarea>
+        </label>
+
+        <button class="btn primary" type="submit">Trimite feedback</button>
+        <p class="hint" id="fbMsg" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> INHERIA</p>
+    <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+      <a href="produse.html">Produse</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  const ff = document.getElementById("feedbackForm");
+  const msg = document.getElementById("fbMsg");
+
+  ff.addEventListener("submit", (e) => {
+    e.preventDefault();
+    msg.textContent = "Mulțumim! Feedback-ul a fost înregistrat.";
+    ff.reset();
+  });
+</script>
+
+</body>
+</html>

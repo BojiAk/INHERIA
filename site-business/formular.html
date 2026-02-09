@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formular test • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+    <a href="ghid-formular.html">Ghid</a>
+
+    <a href="cos.html" class="cart-link" aria-label="Coș">
+      <span class="cart-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+          <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="cart-badge" data-cart-badge></span>
+    </a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-title">Formular INHERIA</h1>
+      <p class="section-subtitle">
+        Completează formularul în 2 pași. Echipa noastră analizează fiecare formular și revine pe email
+        pentru clarificări, recomandări personalizate și pașii următori.
+      </p>
+
+      <!-- progress -->
+      <div class="form-progress">
+        <div class="form-progress-top">
+          <span class="chip" id="stepChip">Pasul 1 din 2</span>
+          <a class="link-muted" href="ghid-formular.html">Vezi ghidul înainte să începi</a>
+        </div>
+        <div class="bar">
+          <div class="bar-fill" id="barFill"></div>
+        </div>
+      </div>
+
+      <form class="form-wizard" id="inheriaForm" novalidate>
+        <!-- STEP 1 -->
+        <section class="card form-step" data-step="1">
+          <h2 class="form-title">📄 Pagina 1 – Despre tine & obiective</h2>
+
+          <h3 class="form-sub">Date personale</h3>
+          <div class="form-grid">
+            <label>
+              Nume și prenume *
+              <input required name="fullName" placeholder="Ex: Popescu Andrei">
+            </label>
+
+            <label>
+              Vârsta *
+              <input required type="number" min="10" max="100" name="age" placeholder="Ex: 18">
+            </label>
+
+            <label>
+              Sex *
+              <select required name="sex" id="sex">
+                <option value="">Alege</option>
+                <option value="F">Feminin</option>
+                <option value="M">Masculin</option>
+                <option value="Alt">Alt / Prefer să nu spun</option>
+              </select>
+            </label>
+
+            <label>
+              Înălțime (cm) *
+              <input required type="number" min="80" max="230" name="height" placeholder="Ex: 175">
+            </label>
+
+            <label>
+              Greutate (kg) *
+              <input required type="number" min="20" max="250" name="weight" placeholder="Ex: 70">
+            </label>
+
+            <label>
+              Email *
+              <input required type="email" name="email" placeholder="email@exemplu.com">
+            </label>
+
+            <label>
+              Telefon (opțional)
+              <input name="phone" placeholder="07xx xxx xxx">
+            </label>
+          </div>
+
+          <h3 class="form-sub">Obiective</h3>
+          <div class="form-grid">
+            <label>
+              Care este obiectivul tău principal? *
+              <select required name="goalMain">
+                <option value="">Alege</option>
+                <option value="slabire">Slăbire</option>
+                <option value="energie">Energie & vitalitate</option>
+                <option value="echilibru">Echilibru & rutină</option>
+                <option value="ingrijire">Îngrijire & self-care</option>
+                <option value="alt">Alt obiectiv</option>
+              </select>
+            </label>
+
+            <label>
+              Unde ai vrea să ajungi? *
+              <input required name="goalTarget" placeholder="Ex: -5kg / mai multă energie / rutină">
+            </label>
+
+            <label>
+              În cât timp ți-ai dori să vezi rezultate? *
+              <select required name="timeline">
+                <option value="">Alege</option>
+                <option value="2-4">2–4 săptămâni</option>
+                <option value="1-2">1–2 luni</option>
+                <option value="3-6">3–6 luni</option>
+                <option value="long">Pe termen lung</option>
+              </select>
+            </label>
+
+            <label>
+              Ce ești dispus/ă să faci pentru a ajunge acolo? *
+              <select required name="commitment">
+                <option value="">Alege</option>
+                <option value="mic">Schimbări mici, treptat</option>
+                <option value="mediu">Schimbări constante</option>
+                <option value="mare">Sunt foarte motivat/ă</option>
+              </select>
+            </label>
+          </div>
+
+          <h3 class="form-sub">Experiențe anterioare</h3>
+          <div class="form-grid">
+            <label>
+              Ai mai urmat diete sau programe? *
+              <select required name="pastPrograms">
+                <option value="">Alege</option>
+                <option value="da">Da</option>
+                <option value="nu">Nu</option>
+              </select>
+            </label>
+
+            <label>
+              Cum a fost experiența ta?
+              <textarea name="pastExperience" rows="4" placeholder="Ce a mers / ce nu a mers?"></textarea>
+            </label>
+          </div>
+
+          <div class="wizard-actions">
+            <span class="hint">* câmp obligatoriu</span>
+            <button class="btn primary" type="button" id="nextBtn">Continuă</button>
+          </div>
+
+          <p class="hint" id="errStep1" aria-live="polite"></p>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="card form-step" data-step="2" hidden>
+          <h2 class="form-title">📄 Pagina 2 – Stil de viață & sănătate</h2>
+
+          <h3 class="form-sub">Rutină</h3>
+          <div class="form-grid">
+            <label>
+              Cât de des faci mișcare? *
+              <select required name="sportFreq">
+                <option value="">Alege</option>
+                <option value="0">Deloc</option>
+                <option value="1-2">1–2 ori / săptămână</option>
+                <option value="3-4">3–4 ori / săptămână</option>
+                <option value="5+">5+ ori / săptămână</option>
+              </select>
+            </label>
+
+            <label>
+              Ce tip de mișcare practici?
+              <input name="sportType" placeholder="Ex: mers, sală, alergare, yoga">
+            </label>
+
+            <label>
+              Cum arată alimentația ta într-o zi obișnuită? *
+              <textarea required name="dietDay" rows="4" placeholder="Descrie pe scurt: dimineața / prânz / seară"></textarea>
+            </label>
+
+            <label>
+              Câte mese ai pe zi? *
+              <input required type="number" min="1" max="10" name="meals" placeholder="Ex: 3">
+            </label>
+
+            <label>
+              Bei suficientă apă? *
+              <select required name="water">
+                <option value="">Alege</option>
+                <option value="putin">Nu prea</option>
+                <option value="ok">Destul de des</option>
+                <option value="mult">Da, constant</option>
+              </select>
+            </label>
+          </div>
+
+          <h3 class="form-sub">Sănătate</h3>
+          <div class="form-grid">
+            <label>
+              Urmezi tratamente medicamentoase?
+              <textarea name="treatment" rows="3" placeholder="Dacă da, menționează pe scurt."></textarea>
+            </label>
+
+            <label>
+              Ai alergii cunoscute?
+              <textarea name="allergies" rows="3" placeholder="Ex: lactoză, nuci, polen etc."></textarea>
+            </label>
+
+            <label>
+              Nivelul tău de stres *
+              <select required name="stress">
+                <option value="">Alege</option>
+                <option value="low">Scăzut</option>
+                <option value="mid">Mediu</option>
+                <option value="high">Ridicat</option>
+              </select>
+            </label>
+
+            <label id="pregWrap" hidden>
+              Pentru femei: ești însărcinată sau alăptezi?
+              <select name="pregnant">
+                <option value="">Alege</option>
+                <option value="nu">Nu</option>
+                <option value="insarcinata">Însărcinată</option>
+                <option value="alaptare">Alăptez</option>
+              </select>
+            </label>
+          </div>
+
+          <h3 class="form-sub">Produse</h3>
+          <div class="form-grid">
+            <label>
+              Ce tip de suplimente te interesează? (poți bifa mai multe)
+              <div class="check-grid">
+                <label class="check"><input type="checkbox" name="supplements" value="energie"> Energie</label>
+                <label class="check"><input type="checkbox" name="supplements" value="digestie"> Digestie</label>
+                <label class="check"><input type="checkbox" name="supplements" value="imunitate"> Imunitate</label>
+                <label class="check"><input type="checkbox" name="supplements" value="slabire"> Slăbire</label>
+                <label class="check"><input type="checkbox" name="supplements" value="somn"> Somn</label>
+                <label class="check"><input type="checkbox" name="supplements" value="alt"> Altceva</label>
+              </div>
+            </label>
+
+            <label>
+              Ai fi deschis/ă să incluzi produse sau snack-uri INHERIA? *
+              <select required name="openSnacks">
+                <option value="">Alege</option>
+                <option value="da">Da</option>
+                <option value="nu">Nu</option>
+                <option value="discut">Vreau să discut mai întâi</option>
+              </select>
+            </label>
+          </div>
+
+          <h3 class="form-sub">Mesaj final</h3>
+          <label>
+            Este ceva important ce ai vrea să știm despre tine?
+            <textarea name="finalMessage" rows="4" placeholder="Orice detaliu relevant"></textarea>
+          </label>
+
+          <label class="consent">
+            <input required type="checkbox" name="consent">
+            Sunt de acord să fiu contactat/ă prin email sau telefon pentru clarificări.
+          </label>
+
+          <div class="wizard-actions">
+            <button class="btn ghost" type="button" id="backBtn">Înapoi</button>
+            <button class="btn primary" type="submit" id="submitBtn">Trimite formularul</button>
+          </div>
+
+          <p class="hint" id="errStep2" aria-live="polite"></p>
+        </section>
+
+        <!-- Success -->
+        <section class="card form-step" data-step="3" hidden>
+          <h2 class="form-title">Mulțumim! ✅</h2>
+          <p class="section-subtitle" style="margin-bottom: 0;">
+            Formularul a fost înregistrat. Echipa INHERIA îl analizează și revine pe email
+            pentru clarificări, recomandări personalizate și pașii următori.
+          </p>
+
+          <div class="guide-cta" style="margin-top: 16px;">
+            <a class="btn primary" href="produse.html">Vezi produsele</a>
+            <a class="btn ghost" href="index.html">Înapoi acasă</a>
+          </div>
+        </section>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> INHERIA</p>
+    <div class="footer-links">
+      <a href="produse.html">Produse</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("inheriaForm");
+  if (!form) return;
+
+  const step1 = form.querySelector('[data-step="1"]');
+  const step2 = form.querySelector('[data-step="2"]');
+  const step3 = form.querySelector('[data-step="3"]');
+
+  const nextBtn = document.getElementById("nextBtn");
+  const backBtn = document.getElementById("backBtn");
+  const submitBtn = document.getElementById("submitBtn");
+
+  const err1 = document.getElementById("errStep1");
+  const err2 = document.getElementById("errStep2");
+
+  const sex = document.getElementById("sex");
+  const pregWrap = document.getElementById("pregWrap");
+
+  function show(n){
+    if (step1) step1.hidden = n !== 1;
+    if (step2) step2.hidden = n !== 2;
+    if (step3) step3.hidden = n !== 3;
+
+    if (err1) err1.textContent = "";
+    if (err2) err2.textContent = "";
+  }
+
+  function validate(container){
+    if (!container) return true;
+    const req = container.querySelectorAll("input[required], select[required], textarea[required]");
+    for (const el of req){
+      if (el.type === "checkbox") {
+        if (!el.checked) return false;
+      } else {
+        if (!el.value || !String(el.value).trim()) return false;
+      }
+    }
+    return true;
+  }
+
+  function updatePreg(){
+    if (!pregWrap) return;
+    pregWrap.hidden = !(sex && sex.value === "F");
+  }
+
+  if (sex) sex.addEventListener("change", updatePreg);
+  updatePreg();
+
+  if (nextBtn) nextBtn.addEventListener("click", () => {
+    if (!validate(step1)) {
+      if (err1) err1.textContent = "Completează câmpurile obligatorii (*) ca să continui.";
+      return;
+    }
+    show(2);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  if (backBtn) backBtn.addEventListener("click", () => {
+    show(1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!validate(step2)) {
+      if (err2) err2.textContent = "Completează câmpurile obligatorii și bifează acordul.";
+      return;
+    }
+
+    // demo save (ok pentru concurs)
+    try {
+      const data = Object.fromEntries(new FormData(form).entries());
+      localStorage.setItem("inheria_last_form", JSON.stringify(data));
+    } catch {}
+
+    show(3);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    form.reset();
+    updatePreg();
+  });
+
+  // START
+  show(1);
+});
+</script>
+
+</body>
+</html>
+

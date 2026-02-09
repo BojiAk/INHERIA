@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coș • INHERIA</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+   <a href="cos.html" class="cart-link" aria-label="Coș">
+  <span class="cart-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+      <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+    </svg>
+  </span>
+
+  <span class="cart-badge" data-cart-badge></span>
+</a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main class="section">
+  <div class="container">
+    <h2 class="section-title">Coșul tău</h2>
+    <div id="cart"></div>
+    <p id="total"></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> INHERIA</p>
+    <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+      <a href="produse.html">Produse</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data-products.js"></script>
+<script src="main.js"></script>
+<script>
+  const cartDiv = document.getElementById("cart");
+  const totalP = document.getElementById("total");
+
+  function renderCart() {
+    const cart = readCart(); // vine din main.js
+    cartDiv.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+      cartDiv.innerHTML = `
+        <div class="card">
+          <h3>Coșul este gol</h3>
+          <p class="section-subtitle" style="margin:8px 0 16px;">
+            Adaugă produse din catalog și le vei vedea aici.
+          </p>
+<button class="btn primary" type="button" id="goProductsBtn">Vezi produse</button>
+        </div>
+      `;
+      const btn = document.getElementById("goProductsBtn");
+if (btn) {
+  btn.addEventListener("click", () => {
+    window.location.href = new URL("produse.html", window.location.href).href;
+  });
+}
+      totalP.textContent = "Total: 0 RON";
+      return;
+    }
+
+    cart.forEach(item => {
+      const p = PRODUCTS.find(prod => prod.id === item.id);
+      if (!p) return;
+
+      total += p.price * item.qty;
+
+      const row = document.createElement("div");
+      row.className = "cart-row";
+      row.innerHTML = `
+        <div>
+          <strong>${p.name}</strong>
+          <div class="cart-sub">${p.price} RON / buc</div>
+        </div>
+
+        <div class="cart-actions">
+          <button class="qty-btn" data-dec="${item.id}" aria-label="Scade">-</button>
+          <span class="qty">${item.qty}</span>
+          <button class="qty-btn" data-inc="${item.id}" aria-label="Crește">+</button>
+          <button class="remove-btn" data-rem="${item.id}" aria-label="Șterge">✕</button>
+        </div>
+      `;
+      cartDiv.appendChild(row);
+    });
+
+    totalP.textContent = "Total: " + total + " RON";
+
+    // +1
+    cartDiv.querySelectorAll("[data-inc]").forEach(b => b.addEventListener("click", () => {
+      addToCart(b.dataset.inc, 1);
+      renderCart();
+    }));
+
+    // -1
+    cartDiv.querySelectorAll("[data-dec]").forEach(b => b.addEventListener("click", () => {
+      const id = b.dataset.dec;
+      const cart = readCart();
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+
+      item.qty -= 1;
+      const newCart = item.qty <= 0 ? cart.filter(x => x.id !== id) : cart;
+      writeCart(newCart);
+      renderCart();
+    }));
+
+    // remove
+    cartDiv.querySelectorAll("[data-rem]").forEach(b => b.addEventListener("click", () => {
+      const id = b.dataset.rem;
+      writeCart(readCart().filter(x => x.id !== id));
+      renderCart();
+    }));
+  }
+
+  renderCart();
+</script>
+
+</body>
+</html>
