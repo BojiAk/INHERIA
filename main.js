@@ -16,14 +16,33 @@ if (burger && nav) {
   });
 }
 
-// animatii la scroll (optional, dar arata bine)
+// animatii la scroll (fara "flash alb" la schimbare de pagini)
 const items = document.querySelectorAll('.section, .card, .product-card');
+
+function inViewport(el) {
+  const r = el.getBoundingClientRect();
+  return r.top < window.innerHeight * 0.95; // deja vizibil (sus pe pagină)
+}
+
 if (items.length) {
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
   }, { threshold: 0.12 });
 
-  items.forEach(i => { i.classList.add('reveal'); io.observe(i); });
+  items.forEach(el => {
+    // dacă e deja în viewport, nu îl mai ascundem
+    if (inViewport(el)) {
+      el.classList.add('show');
+    } else {
+      el.classList.add('reveal');
+      io.observe(el);
+    }
+  });
 }
 
 // anul in footer (daca exista)
@@ -59,6 +78,14 @@ function readCart() {
     }
   }
 
+  // Curățare: elimină produse care nu mai există în catalog (ex: ai schimbat lista de produse)
+  if (typeof PRODUCTS !== "undefined" && Array.isArray(PRODUCTS)) {
+    const validIds = new Set(PRODUCTS.map(p => p.id));
+    const cleaned = normalized.filter(x => validIds.has(x.id));
+    localStorage.setItem(CART_KEY, JSON.stringify(cleaned));
+    return cleaned;
+  }
+
   localStorage.setItem(CART_KEY, JSON.stringify(normalized));
   return normalized;
 }
@@ -67,6 +94,10 @@ function writeCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
   updateCartBadge();
 }
+
+// Actualizează badge-ul de coș la încărcarea paginii + când revii cu Back/Forward
+document.addEventListener("DOMContentLoaded", updateCartBadge);
+window.addEventListener("pageshow", updateCartBadge);
 
 function addToCart(id, qty = 1) {
   const cart = readCart();

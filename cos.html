@@ -45,16 +45,25 @@
 </header>
 
 <main class="section">
+
+  <img src="images/logoB.png" alt="Inheria logo" class="logo-preview">
+
   <div class="container">
     <h2 class="section-title">Coșul tău</h2>
     <div id="cart"></div>
-    <p id="total"></p>
+    <div class="cart-summary">
+  <p class="cart-total-label">Total</p>
+  <p id="total" class="cart-total-value"></p>
+</div>
+    <div class="cart-checkout">
+  <a class="btn primary" id="checkoutBtn" href="contact.html">Finalizează comanda</a>
+</div>
   </div>
 </main>
 
 <footer class="footer">
   <div class="container footer-inner">
-    <p>© <span id="year"></span> INHERIA</p>
+    <p>© <span id="year"></span> INHERIA - Business Plan</p>
     <div class="footer-links">
         <a href="feedback.html">Feedback</a>
       <a href="produse.html">Produse</a>
@@ -68,9 +77,11 @@
 <script>
   const cartDiv = document.getElementById("cart");
   const totalP = document.getElementById("total");
+  const checkoutBtn = document.getElementById("checkoutBtn");
 
   function renderCart() {
     const cart = readCart(); // vine din main.js
+        if (checkoutBtn) checkoutBtn.style.display = cart.length ? "inline-flex" : "none";
     cartDiv.innerHTML = "";
     let total = 0;
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produs • INHERIA</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+    <a href="cos.html" class="cart-link" aria-label="Coș">
+      <span class="cart-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+          <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="cart-badge" data-cart-badge></span>
+    </a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <img src="images/logoB.png" alt="Inheria logo" class="logo-preview">
+
+  <section class="section">
+    <div class="container" id="productWrap"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> INHERIA - Business Plan</p>
+    <div class="footer-links">
+      <a href="feedback.html">Feedback</a>
+      <a href="despre.html">Despre</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script src="data-products.js"></script>
+<script>
+  const wrap = document.getElementById("productWrap");
+  const id = new URLSearchParams(location.search).get("id");
+  const p = PRODUCTS.find(x => x.id === id);
+
+  if(!p){
+    wrap.innerHTML = `<div class="card">Produsul nu a fost găsit. <a href="produse.html">Înapoi la produse</a></div>`;
+  } else {
+    document.title = p.name + " • INHERIA";
+    wrap.innerHTML = `
+      <div class="product-page">
+        <a class="back-link" href="produse.html">← Înapoi la produse</a>
+
+        <div class="product-hero card">
+          <div class="product-media">
+            <img src="${p.image || 'images/logo.png'}" alt="${p.name}">
+          </div>
+          <div class="product-info">
+            <div class="product-top">
+              <span class="product-badge badge-${(p.badge||'').toLowerCase().replace(/\\s+/g,'-')}">${p.badge || ''}</span>
+              <span class="product-price">${p.price} RON</span>
+            </div>
+            <h1 class="product-title">${p.name}</h1>
+            <p class="product-short">${p.short || ''}</p>
+
+            <ul class="product-highlights">
+              ${(p.highlights || []).map(h => `<li>${h}</li>`).join("")}
+            </ul>
+
+            <div class="product-actions">
+              <button class="btn primary" onclick="addToCart('${p.id}')">Adaugă în coș</button>
+              <a class="btn ghost" href="contact.html">Întreabă-ne</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-details card">
+          <h2>Descriere</h2>
+          <p>${p.long || ''}</p>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>

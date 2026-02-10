@@ -20,20 +20,55 @@
 
 html{ scroll-behavior:smooth; }
 html, body { height: 100%; }
+html{ background: var(--bg2); }
 
 body{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
+  z-index: 0;
+  isolation: isolate;
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:
-  radial-gradient(900px 520px at 15% 10%, rgba(var(--green1), .16), transparent 60%),
-  radial-gradient(800px 420px at 85% 0%, rgba(var(--lime), .12), transparent 55%),
-  radial-gradient(900px 520px at 80% 95%, rgba(var(--green2), .10), transparent 55%),
-  linear-gradient(180deg, var(--bg), var(--bg2));
 
+  /* background-ul îl randăm prin ::before (fixat pe viewport), ca să evităm
+     "tăietura"/linia care apare uneori la scroll când gradientul se repornește */
+  background: transparent;
   color: var(--text);
+  position: relative;
+}
+
+/* background fix (uniform la scroll) */
+body::before{
+  content:"";
+  position: fixed;
+  /* extindem mult în afara viewport-ului ca să nu se vadă clipping-ul
+     la margini (mai ales pe mobil / când bara de adresă se micșorează) */
+  inset: -140px;
+  z-index: -2;
+  transform: translateZ(0);
+  will-change: transform;
+  opacity: 0.95;
+  pointer-events: none;
+  filter: saturate(1.05) brightness(1.02);
+  animation: backgroundFloat 40s ease-in-out infinite;
+background:
+  radial-gradient(
+    ellipse at 50% 30%,
+    rgba(120, 190, 130, 0.35),
+    rgba(120, 190, 130, 0.15) 40%,
+    transparent 70%
+  ),
+  radial-gradient(
+    ellipse at 20% 80%,
+    rgba(90, 160, 110, 0.18),
+    transparent 60%
+  ),
+  linear-gradient(
+    180deg,
+    #f7fcf8 0%,
+    #eef7f0 40%,
+    #e6f2ea 100%
+  );
 }
 
 /* împinge footer-ul jos */
@@ -43,9 +78,9 @@ main{ flex: 1; }
 .container{ width:min(1100px, 92%); margin:0 auto; }
 .section{ padding: 86px 0; }
 .section.alt{
-  background: rgba(255,255,255,0.6);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+  background: transparent;
+  border-top: 0;
+  border-bottom: 0;
 }
 
 .section-title{
@@ -79,12 +114,6 @@ main{ flex: 1; }
 }
 
 /* Linia colorată de sub navbar (global) */
-.navbar{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
 .navbar::after{
   content:"";
   position:absolute;
@@ -114,6 +143,15 @@ main{ flex: 1; }
   width: auto;
   display: block;
   transform: translateY(1px);
+}
+.logo-preview{
+  z-index:-1;
+  position:fixed;
+  top:30%;
+  left:80%;
+  scale: 2.6;
+  opacity: 0.2;
+  filter:blur(2px);
 }
 .nav{
   display:flex;
@@ -383,22 +421,36 @@ button::-moz-focus-inner{
 
 /* products page grid */
 .products{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
+
+@media (min-width: 1280px){
+  .products{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 700px){
+  .products{ grid-template-columns: 1fr; }
+}
+
 .product-card{
-  border:1px solid rgba(2,6,23,0.10);
-  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(2,6,23,0.10);
+  background: rgba(255,255,255,0.96);
   border-radius: var(--radius);
   padding: 20px;
-  box-shadow: 0 18px 45px rgba(2,6,23,0.08);
-  transition: transform .22s ease, background .22s ease;
+
+  box-shadow: 0 10px 26px rgba(2,6,23,0.06);
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
 }
-.product-card:hover{ transform: translateY(-6px); background:#fff; }
-.product-top{
-  display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
-  margin-bottom: 10px;
+
+.product-card:hover{
+  transform: translateY(-6px);
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(2,6,23,0.10);
 }
 .product-badge{
   font-size: 12px;
@@ -683,7 +735,7 @@ input:focus, textarea:focus{
   content:"";
   position:absolute;
   inset:-2px;
-  background: linear-gradient(135deg, rgba(var(--green1), .25), rgba(var(--lime), .18), transparent 60%);
+  background: linear-gradient(135deg, rgba(var(--green1), .25), rgba(var(--lime), .18), rgba(255,255,255,0.9));
   filter: blur(10px);
   opacity: .9;
   z-index: 0;
@@ -947,4 +999,689 @@ main{ flex: 1; }
   color: #b91c1c;
   font-weight: 700;
   margin-top: 10px;
+}
+/* Produse: layout cu catalog în stânga */
+.catalog-layout{
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.catalog-sidebar{
+  position: sticky;
+  top: 88px; /* să stea sub navbar */
+  align-self: start;
+}
+
+.catalog-box{
+  background: rgba(var(--card), .92);
+  border: 1px solid rgba(var(--green1), .16);
+  border-radius: 18px;
+  padding: 10px 12px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.08);
+  margin-bottom: 12px;
+}
+
+.catalog-box > summary{
+  cursor: pointer;
+  font-weight: 800;
+  padding: 8px 6px;
+  list-style: none;
+}
+.catalog-box > summary::-webkit-details-marker{ display:none; }
+
+.catalog-links{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 6px 10px;
+}
+
+.catalog-link{
+  text-align:left;
+  border: 1px solid rgba(var(--green1), .14);
+  background: rgba(var(--bg2), .5);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.catalog-link:hover{
+  background: rgba(var(--green1), .08);
+}
+
+.catalog-link.is-active{
+  background: rgba(var(--green1), .14);
+  border-color: rgba(var(--green1), .22);
+  font-weight: 800;
+}
+
+.catalog-filters{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 6px 12px;
+}
+
+.radio{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  cursor:pointer;
+}
+
+.catalog-top{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  margin-bottom: 10px;
+}
+
+.catalog-active{
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Responsive: pe mobil sidebar devine pe verticală */
+@media (max-width: 900px){
+  .catalog-layout{ grid-template-columns: 1fr; }
+  .catalog-sidebar{ position: static; }
+}
+/* ===== PRODUSE: layout tip site mare ===== */
+.shop-layout{
+  display:grid;
+  grid-template-columns: 320px 1fr; /* sidebar mai solid */
+  gap: 24px;                        /* mai mult spațiu între coloane */
+  margin-top: 18px;
+  align-items: start;
+}
+
+.shop-main{
+  min-width: 0; /* ajută grid-ul să nu înghesuie */
+}
+
+.shop-sidebar{
+  position: sticky;
+  top: 88px;
+  align-self: start;
+}
+
+.filter-card{
+  background: rgba(var(--card), .92);
+  border: 1px solid rgba(var(--green1), .16);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.08);
+  margin-bottom: 12px;
+}
+
+.filter-card h3{
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.filter-list{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cat-item{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  text-align:left;
+  border: 1px solid rgba(var(--green1), .14);
+  background: rgba(var(--bg2), .55);
+  padding: 12px 12px;
+  border-radius: 14px;
+  cursor:pointer;
+}
+
+.cat-item:hover{ background: rgba(var(--green1), .08); }
+.cat-item.is-active{
+  background: rgba(var(--green1), .14);
+  border-color: rgba(var(--green1), .22);
+  font-weight: 800;
+}
+
+.cat-count{
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid rgba(var(--green1), .14);
+  background: rgba(var(--card), .8);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* Toolbar produse: search + sort aliniate perfect */
+.shop-toolbar{
+  display: flex;
+  align-items: center;           /* CHEIA: centrare verticală */
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;            /* mai aerisit și simetric */
+}
+
+.search-wrap{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;                     /* elimină orice offset */
+  max-width: 520px;              /* nu-l lăsa să fie uriaș */
+}
+
+.search-wrap input{
+  width: 100%;
+  height: 44px;                  /* înălțime constantă => aliniere perfectă */
+  padding: 0 16px;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(2,6,23,0.12);
+  background: #fff;
+}
+
+.toolbar-right{
+  display: flex;
+  align-items: center;
+}
+
+#sortSelect{
+  height: 44px;                  /* aceeași înălțime ca search */
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(2,6,23,0.12);
+  background: #fff;
+}
+
+/* Responsive: pe mobil le punem unul sub altul */
+@media (max-width: 720px){
+  .shop-toolbar{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-wrap{
+    max-width: 100%;
+  }
+  #sortSelect{
+    width: 100%;
+  }
+}
+
+.search-wrap input{
+  width: 100%;
+  padding: 13px 18px; /* mai jos, mai compact */
+  font-size: 1rem;
+
+  border-radius: 14px;
+  border: 1px solid rgba(2,6,23,0.15);
+  background: #fff;
+
+  box-shadow: 0 8px 22px rgba(2,6,23,0.06);
+  transition: border .2s ease, box-shadow .2s ease;
+}
+
+.search-wrap input::placeholder{
+  color: #9aa0a6;
+}
+
+.search-wrap input:focus{
+  outline: none;
+  border-color: #2f5e44;
+  box-shadow: 0 0 0 4px rgba(47,94,68,0.15);
+}
+
+.toolbar-right select{
+  border: 1px solid rgba(var(--green1), .16);
+  background: rgba(var(--bg2), .55);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.shop-meta{
+  margin: 10px 0 10px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* card produs cu imagine + click pe tot */
+.product-card-click .product-link{
+  display:block;
+  color: inherit;
+  text-decoration:none;
+}
+
+.product-thumb{
+  border-radius: 14px;
+  overflow:hidden;
+  border: 1px solid rgba(var(--green1), .12);
+  background: rgba(var(--bg2), .35);
+  margin-bottom: 10px;
+}
+
+.product-thumb img{
+  width:100%;
+  height: 160px;
+  object-fit:scale-down;
+  display:block;
+}
+
+.product-card-click:hover{
+  transform: translateY(-2px);
+}
+
+/* badge-uri faine */
+.product-badge{ border-radius: 999px; padding: 6px 10px; }
+.badge-popular{ background: rgba(34,197,94,.14); border:1px solid rgba(34,197,94,.25); }
+.badge-nou{ background: rgba(59,130,246,.14); border:1px solid rgba(59,130,246,.25); }
+.badge-best-seller{ background: rgba(245,158,11,.14); border:1px solid rgba(245,158,11,.25); }
+.badge-natural{ background: rgba(var(--green1), .12); border:1px solid rgba(var(--green1), .22); }
+
+/* pagina produs */
+.product-page{ display:flex; flex-direction: column; gap: 14px; }
+.back-link{ text-decoration:none; font-weight:700; color: var(--text); opacity:.85; }
+.back-link:hover{ opacity:1; }
+
+.product-hero{
+  display:grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.product-media img{
+  width:100%;
+  border-radius: 14px;
+  border: 1px solid rgba(var(--green1), .14);
+  height: 320px;
+  object-fit:scale-down;
+  display:block;
+}
+
+.product-title{ margin: 8px 0 6px; font-size: clamp(24px, 3vw, 34px); }
+.product-short{ color: var(--muted); margin-bottom: 10px; }
+
+.product-highlights{
+  margin: 10px 0 14px;
+  padding-left: 18px;
+  color: var(--text);
+}
+
+.product-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 980px){
+  .shop-layout{ grid-template-columns: 1fr; }
+  .shop-sidebar{ position: static; }
+  .product-hero{ grid-template-columns: 1fr; }
+  .product-media img{ height: 240px; }
+}
+/* Card produs: butonul mereu jos + înălțime consistentă */
+.product-card{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card .product-link{
+  display: flex;
+  flex-direction: column;
+  flex: 1;              /* umple spațiul de sus */
+}
+
+.product-card h3{
+  margin-bottom: 6px;
+}
+
+/* descriere cu max 3 rânduri */
+.product-card p{
+  margin-top: 0;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+
+  line-clamp: 3;        /* standard */
+  overflow: hidden;
+}
+
+/* împinge butonul jos indiferent de text */
+.product-card .btn{
+  margin-top: auto;
+}
+.product-thumb img{
+  width: 100%;
+  height: 160px;
+  object-fit:scale-down;
+  display: block;
+  background: rgba(var(--bg2), .35);
+}
+.cart-summary {
+  margin-top: 30px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-total-label {
+  margin: 0;
+  font-weight: 500;
+  color: #555;
+}
+
+max.cart-total-value {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #1f3d2b; /* verde elegant */
+}
+
+.cart-checkout {
+  margin-top: 20px;
+  text-align: right;
+}
+/* ===== Price slider: track + thumb perfectly aligned ===== */
+#maxPrice{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent; /* track-ul îl controlăm separat */
+  padding: 0;
+  margin: 0;
+}
+
+/* Chrome / Edge track */
+#maxPrice::-webkit-slider-runnable-track{
+  height: 10px;
+  border-radius: 999px;
+    background: transparent;; /* fallback; JS pune gradientul pe input */
+}
+
+/* Chrome / Edge thumb */
+#maxPrice::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3a6b52;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  cursor: pointer;
+
+  /* cheia: thumb centrat pe track */
+  margin-top: -4px; /* (10px track - 18px thumb) / 2 = -4px */
+}
+
+/* Firefox track */
+#maxPrice::-moz-range-track{
+  height: 10px;
+  border-radius: 999px;
+  background: #3a6b52;
+}
+
+/* Firefox thumb */
+#maxPrice::-moz-range-thumb{
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgb(var(--green1));
+  border: 2px solid #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  cursor: pointer;
+}
+/* Elimină highlight-ul albastru la drag / focus */
+#maxPrice{
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#maxPrice:focus-visible{
+  box-shadow: 0 0 0 3px rgba(47, 94, 68, 0.25);
+  border-radius: 999px;
+}
+
+#maxPrice::-moz-focus-outer{
+  border: 0;
+}
+/* Nu mai selectează nimic cât timp tragi sliderul */
+.no-select, .no-select *{
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Scoate orice ring/outline default */
+#maxPrice:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* ===== Searchbar cu icon (suprascrie stilurile vechi) ===== */
+.search-wrap{
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 0; /* nu-l mai deplasa */
+}
+
+.search-wrap::before{
+  content: "🔍";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.search-wrap input{
+  width: 100%;
+  height: 44px;
+  padding: 0 16px 0 44px; /* spațiu pentru icon */
+  font-size: 1rem;
+
+  border-radius: 14px;
+  border: 1px solid rgba(2,6,23,0.12);
+  background: #fff;
+
+  box-shadow: 0 8px 22px rgba(2,6,23,0.06);
+  transition: border .2s ease, box-shadow .2s ease;
+}
+
+.search-wrap input:focus{
+  outline: none;
+  border-color: #2f5e44;
+  box-shadow: 0 0 0 3px rgba(47,94,68,0.15);
+}
+/* Scoatem gradientul din hero ca să nu se vadă “tăietura” */
+.hero::before{
+  display: none;
+}
+/* FIX definitiv pentru “tăietura” de fundal */
+.recommend,
+.recommendations,
+.cta,
+.section-highlight{
+  background: transparent !important;
+}
+.recommend .card,
+.recommendations .card,
+.cta .card,
+.section-highlight .card{
+  background: #ffffff;
+  border-radius: 22px;
+  border: 1px solid rgba(2,6,23,0.08);
+  box-shadow: 0 18px 45px rgba(2,6,23,0.08);
+}
+/* Elimină linia/tăietura dintre secțiuni (borderul din .section.alt) */
+.section.alt{
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  background: transparent !important;
+}
+.section.alt{
+  background: rgba(255,255,255,0.35) !important; /* foarte subtil */
+}
+/* cardul din secțiunea cu recomandări: fundal solid ca să nu mai apară seam */
+.reco-card,
+.cta-card,
+.section .card{
+  background: #ffffff !important;
+}
+@keyframes backgroundFloat {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-40px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+.org-page{
+  max-width: 1200px;
+  margin: 40px auto 80px;
+  padding: 0 16px;
+}
+
+.org-head{
+  margin-bottom: 18px;
+}
+
+.org-head p{
+  margin: 8px 0 0;
+  color: #3f6f55;
+}
+
+.org-svg{
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(31,138,69,0.18);
+  border-radius: 18px;
+  padding: 18px;
+  overflow: auto;
+}
+
+.org-svg svg{
+  width: 100%;
+  min-width: 980px;
+  height: auto;
+  display: block;
+}
+/* Forțează SVG-ul să folosească fontul site-ului */
+.org-svg svg text{
+  font-family: inherit !important;
+}
+/* === About: Organigram section === */
+.org-preview {
+  margin-top: 26px;
+  padding: 18px 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(31,138,69,0.16);
+  max-width: 720px;
+}
+
+.org-preview p {
+  margin: 6px 0 12px;
+  color: #3f6f55;
+}
+
+/* butonul */
+.org-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f2f1f;
+  background: rgba(31,138,69,0.12);
+  border: 1px solid rgba(31,138,69,0.28);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.org-cta:hover {
+  transform: translateY(-1px);
+  background: rgba(31,138,69,0.16);
+  box-shadow: 0 10px 22px rgba(31,138,69,0.12);
+}
+/* === About: Organigram callout (pro look) === */
+.org-callout{
+  margin-top: 26px;
+}
+
+.org-callout__inner{
+  max-width: 980px;               /* se aliniază bine cu zona de content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  padding: 18px 18px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(31,138,69,0.16);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+  backdrop-filter: blur(6px);
+}
+
+.org-callout__text h2{
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.org-callout__text p{
+  margin: 6px 0 0;
+  color: #3f6f55;
+}
+
+.org-callout__btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+
+  color: #0f2f1f;
+  background: rgba(31,138,69,0.12);
+  border: 1px solid rgba(31,138,69,0.28);
+
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  white-space: nowrap;
+}
+
+.org-callout__btn:hover{
+  transform: translateY(-1px);
+  background: rgba(31,138,69,0.16);
+  box-shadow: 0 12px 26px rgba(31,138,69,0.18);
+}
+
+.org-callout__arrow{
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 720px){
+  .org-callout__inner{
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

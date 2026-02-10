@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organigramă | Inheria</title>
+
+  <!-- CSS-ul tău -->
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="navbar">
+  <a class="logo" href="index.html" aria-label="INHERIA - Acasă">
+    <img src="images/logo.png" alt="Inheria logo">
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="index.html">Acasă</a>
+    <a href="despre.html">Despre</a>
+    <a href="produse.html">Produse</a>
+
+    <a href="cos.html" class="cart-link" aria-label="Coș">
+      <span class="cart-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+          <path d="M18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="cart-badge" data-cart-badge></span>
+    </a>
+
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+  
+  <!-- CONȚINUT PAGINĂ -->
+  <main class="org-page">
+
+    <div class="org-head">
+      <h1>Organigramă</h1>
+      <p>Structura echipei noastre și rolurile principale din Inheria.</p>
+    </div>
+
+    <div class="org-svg">
+  <section id="organigrama" class="org-wrap">
+
+  <div class="org-svg">
+    <!-- SVG START -->
+    <svg viewBox="0 0 1400 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Organigrama INHERIA">
+      <defs>
+        <style>
+          .box { fill:#ffffff; stroke:#1f8a45; stroke-width:2; rx:18; }
+          .name { font: 700 20px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+          .role { font: 500 15px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+          .line { stroke:#1f8a45; stroke-width:2; fill:none; }
+          .muted { fill:#eef7f0; }
+        </style>
+      </defs>
+
+      <!-- TOP -->
+      <rect class="box muted" x="520" y="30" width="360" height="74" rx="18"/>
+      <text class="name" x="700" y="62" text-anchor="middle">Denisa</text>
+      <text class="role" x="700" y="86" text-anchor="middle">Director Principal (CEO)</text>
+
+      <rect class="box" x="520" y="130" width="360" height="74" rx="18"/>
+      <text class="name" x="700" y="162" text-anchor="middle">Larisa</text>
+      <text class="role" x="700" y="186" text-anchor="middle">Director Adjunct</text>
+
+      <!-- connector down -->
+      <path class="line" d="M700 104 L700 130"/>
+
+      <!-- main bus line -->
+      <path class="line" d="M120 250 L1280 250"/>
+      <path class="line" d="M700 204 L700 250"/>
+
+      <!-- Dept 1: Finance -->
+      <path class="line" d="M180 250 L180 280"/>
+      <rect class="box" x="60" y="280" width="240" height="78" rx="18"/>
+      <text class="name" x="180" y="312" text-anchor="middle">Miriam</text>
+      <text class="role" x="180" y="336" text-anchor="middle">Manager financiar / contabil</text>
+
+      <path class="line" d="M180 358 L180 395"/>
+      <rect class="box" x="60" y="395" width="240" height="70" rx="18"/>
+      <text class="name" x="180" y="426" text-anchor="middle">Marta</text>
+      <text class="role" x="180" y="448" text-anchor="middle">Analist financiar</text>
+
+      <!-- Dept 2: Marketing -->
+      <path class="line" d="M470 250 L470 280"/>
+      <rect class="box" x="350" y="280" width="240" height="78" rx="18"/>
+      <text class="name" x="470" y="312" text-anchor="middle">Ligia</text>
+      <text class="role" x="470" y="332" text-anchor="middle">
+  <tspan x="470" dy="0">Manager marketing</tspan>
+  <tspan x="470" dy="18">&amp; branding</tspan>
+</text>
+
+      <path class="line" d="M470 358 L470 395"/>
+      <rect class="box" x="350" y="395" width="240" height="78" rx="18"/>
+      <text class="name" x="470" y="427" text-anchor="middle">Louisa</text>
+      <text class="role" x="470" y="451" text-anchor="middle">Specialist social &amp; publicitate</text>
+
+      <path class="line" d="M470 473 L470 510"/>
+      <rect class="box" x="320" y="510" width="300" height="78" rx="18"/>
+      <text class="name" x="470" y="542" text-anchor="middle">Rebeca</text>
+      <text class="role" x="470" y="566" text-anchor="middle">Designer grafic &amp; content creator</text>
+
+      <!-- Dept 3: IT -->
+      <path class="line" d="M740 250 L740 280"/>
+      <rect class="box" x="620" y="280" width="240" height="78" rx="18"/>
+      <text class="name" x="740" y="312" text-anchor="middle">Alex</text>
+      <text class="role" x="740" y="336" text-anchor="middle">Manager IT &amp; Digital</text>
+
+      <path class="line" d="M740 358 L740 395"/>
+      <rect class="box" x="620" y="395" width="240" height="70" rx="18"/>
+      <text class="name" x="740" y="426" text-anchor="middle">Gabriel</text>
+      <text class="role" x="740" y="448" text-anchor="middle">Specialist IT</text>
+
+      <!-- Dept 4: Produse & Inovatie -->
+      <path class="line" d="M1010 250 L1010 280"/>
+      <rect class="box" x="890" y="280" width="240" height="78" rx="18"/>
+      <text class="name" x="1010" y="312" text-anchor="middle">Alexandra</text>
+      <text class="role" x="1010" y="332" text-anchor="middle">
+  <tspan x="1010" dy="0">Manager produse</tspan>
+  <tspan x="1010" dy="18">&amp; inovație</tspan>
+</text>
+
+     <!-- Corina box (păstrează-l la 280) -->
+      <path class="line" d="M1010 358 L1010 395"/>
+<rect class="box" x="870" y="395" width="280" height="92" rx="18"/>
+
+<text class="name" x="1010" y="425" text-anchor="middle">Corina</text>
+
+<text class="role" x="1010" y="445" text-anchor="middle">
+  <tspan x="1010" dy="0">Specialist</tspan>
+  <tspan x="1010" dy="18">cercetare &amp;</tspan>
+  <tspan x="1010" dy="18">personalizare</tspan>
+</text>
+
+
+      <!-- Dept 5: Client Relations -->
+      <path class="line" d="M1250 250 L1250 280"/>
+      <rect class="box" x="1140" y="280" width="220" height="78" rx="18"/>
+      <text class="name" x="1250" y="312" text-anchor="middle">Andrei</text>
+      <text class="role" x="1250" y="336" text-anchor="middle">Relații cu clienții</text>
+    </svg>
+    <!-- SVG END -->
+  </div>
+</section>
+
+    </div>
+
+  </main>
+
+ <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> 2026 INHERIA - Business Plan</p>
+      <div class="footer-links">
+        <a href="feedback.html">Feedback</a>
+        <a href="produse.html">Produse</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

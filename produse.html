@@ -46,21 +46,66 @@
 
 
   <main>
+
+    <img src="images/logoB.png" alt="Inheria logo" class="logo-preview">
+
     <section class="section">
       <div class="container">
-        <h2 class="section-title">Produse</h2>
+        <h2 class="section-title">Produse INHERIA</h2>
         <p class="section-subtitle">
-          Aici poți lista produsele/serviciile. Pentru concurs e suficient: nume + beneficii + preț orientativ.
+          Produse naturale create din plante atent selecționate, pentru susținerea corpului și a stării de bine.<br>
+          <strong>Explorează:</strong> Suplimente, Vitamine, Snackuri, Cosmetice, Ceaiuri &amp; infuzii.
         </p>
 
-       <div class="products" id="productsGrid"></div>
+    <div class="shop-layout">
+  <aside class="shop-sidebar">
+    <div class="filter-card">
+      <h3>Catalog</h3>
+      <div class="filter-list" id="catList"></div>
+    </div>
+
+    <div class="filter-card">
+      <h3>Preț</h3>
+      <label class="filter-row">
+        <span>Max:</span>
+        <span id="maxPriceLabel"></span>
+      </label>
+      <input id="maxPrice" type="range" min="0" max="500" step="1" value="500">
+      <button class="btn ghost full" id="resetFilters" type="button">Resetează filtre</button>
+    </div>
+  </aside>
+
+  <section class="shop-main">
+    <div class="shop-toolbar card">
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="Caută produse (ex: vitamine, program, ser)…">
+      </div>
+
+      <div class="toolbar-right">
+        <select id="sortSelect">
+          <option value="reco">Sortare: Recomandate</option>
+          <option value="price-asc">Preț: crescător</option>
+          <option value="price-desc">Preț: descrescător</option>
+          <option value="name-asc">Nume: A–Z</option>
+          <option value="name-desc">Nume: Z–A</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="shop-meta" id="resultsMeta"></div>
+    <div class="products" id="productsGrid"></div>
+  </section>
+</div>
+
+  </section>
+</div>
 
     </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>© <span id="year"></span> INHERIA</p>
+      <p>© <span id="year"></span> INHERIA - Business Plan</p>
       <div class="footer-links">
         <a href="feedback.html">Feedback</a>
         <a href="despre.html">Despre</a>
@@ -73,26 +118,151 @@
 <script src="data-products.js"></script>
 <script>
   const grid = document.getElementById("productsGrid");
+  const catList = document.getElementById("catList");
+  const searchInput = document.getElementById("searchInput");
+  const sortSelect = document.getElementById("sortSelect");
+  const resultsMeta = document.getElementById("resultsMeta");
+  const maxPrice = document.getElementById("maxPrice");
+  maxPrice.addEventListener("pointerdown", () => {
+  document.body.classList.add("no-select");
+  // elimină focus-ul (ăla e “albastrul”)
+  maxPrice.blur();
+});
 
-  PRODUCTS.forEach(p => {
-    const card = document.createElement("article");
-    card.className = "product-card";
+window.addEventListener("pointerup", () => {
+  document.body.classList.remove("no-select");
+});
+  const maxPriceLabel = document.getElementById("maxPriceLabel");
+  const resetBtn = document.getElementById("resetFilters");
 
-    card.innerHTML = `
-      <div class="product-top">
-        <span class="product-badge">${p.badge}</span>
-        <span class="product-price">${p.price} RON</span>
-      </div>
-      <h3>${p.name}</h3>
-      <p>${p.description}</p>
-   <button class="btn primary full"
-onclick="addToCart('${p.id}'); this.disabled=true; this.textContent='Adăugat ✓'; setTimeout(()=>{this.disabled=false; this.textContent='Adaugă în coș';}, 900);">
-        Adaugă în coș
+  const categories = ["Toate", ...Array.from(new Set(PRODUCTS.map(p => p.category || "Altele")))];
+  let state = { cat: "Toate", q: "", sort: "reco", max: 500 };
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+  function buildCats(){
+    catList.innerHTML = categories.map(c => `
+      <button class="cat-item ${c===state.cat?'is-active':''}" type="button" data-cat="${esc(c)}">
+        ${esc(c)}
+        <span class="cat-count">${PRODUCTS.filter(p => (c==="Toate") || ((p.category||"Altele")===c)).length}</span>
       </button>
-    `;
+    `).join("");
+  }
 
-    grid.appendChild(card);
+  function matches(p){
+    const cat = p.category || "Altele";
+    const catOk = (state.cat === "Toate") || (cat === state.cat);
+    const q = state.q.trim().toLowerCase();
+    const blob = (p.name+" "+(p.short||"")+" "+(p.description||"")+" "+(p.tags||[]).join(" ")).toLowerCase();
+    const qOk = !q || blob.includes(q);
+    const priceOk = (Number(p.price)||0) <= state.max;
+    return catOk && qOk && priceOk;
+  }
+
+  function sortList(list){
+    const arr = [...list];
+    if(state.sort === "price-asc") arr.sort((a,b)=>a.price-b.price);
+    if(state.sort === "price-desc") arr.sort((a,b)=>b.price-a.price);
+    if(state.sort === "name-asc") arr.sort((a,b)=>a.name.localeCompare(b.name,'ro'));
+    if(state.sort === "name-desc") arr.sort((a,b)=>b.name.localeCompare(a.name,'ro'));
+    return arr;
+  }
+
+  function badgeClass(b){
+    return ("badge-" + String(b||"").toLowerCase().replace(/\s+/g,'-'));
+  }
+
+  function paintPriceRange(){
+  const min = Number(maxPrice.min || 0);
+  const max = Number(maxPrice.max || 100);
+  const val = Number(maxPrice.value || max);
+
+  const pct = ((val - min) / (max - min)) * 100;
+
+  // Fill până la valoare; la maxim ajunge exact la 100% (fără spațiu alb)
+  maxPrice.style.background =
+    `linear-gradient(to right,
+      #3a6b52 0%,
+      #3a6b52 ${pct}%,
+      #e8ece8 ${pct}%,
+      #e8ece8 100%)`;
+}
+
+  function render(){
+    maxPriceLabel.textContent = state.max + " RON";
+    maxPrice.value = state.max;
+paintPriceRange();
+
+    const filtered = sortList(PRODUCTS.filter(matches));
+    resultsMeta.textContent = `${filtered.length} rezultat(e)`;
+
+    grid.innerHTML = "";
+    if(filtered.length === 0){
+      grid.innerHTML = `<div class="card">Niciun produs găsit. Încearcă altă căutare/filtru.</div>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const card = document.createElement("article");
+      card.className = "product-card product-card-click";
+      card.innerHTML = `
+        <a class="product-link" href="produs.html?id=${encodeURIComponent(p.id)}" aria-label="Vezi ${esc(p.name)}">
+          <div class="product-thumb">
+            <img src="${esc(p.image || 'images/logo.png')}" alt="${esc(p.name)}">
+          </div>
+
+          <div class="product-top">
+            <span class="product-price">${esc(p.price)} RON</span>
+          </div>
+          <h3>${esc(p.name)}</h3>
+          <p>${esc(p.short || p.description || "")}</p>
+        </a>
+
+        <button class="btn primary full"
+          onclick="addToCart('${esc(p.id)}'); this.disabled=true; this.textContent='Adăugat ✓'; setTimeout(()=>{this.disabled=false; this.textContent='Adaugă în coș';}, 900);">
+          Adaugă în coș
+        </button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // events
+  catList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".cat-item");
+    if(!btn) return;
+    state.cat = btn.dataset.cat;
+    buildCats();
+    render();
   });
+
+  searchInput.addEventListener("input", () => {
+    state.q = searchInput.value;
+    render();
+  });
+
+  sortSelect.addEventListener("change", () => {
+    state.sort = sortSelect.value;
+    render();
+  });
+
+maxPrice.addEventListener("input", () => {
+  state.max = Number(maxPrice.value);
+  paintPriceRange();
+  render();
+});
+
+  resetBtn.addEventListener("click", () => {
+    state = { cat:"Toate", q:"", sort:"reco", max:500 };
+    searchInput.value = "";
+    sortSelect.value = "reco";
+    maxPrice.value = "500";
+    buildCats();
+    render();
+  });
+
+  buildCats();
+  render();
 </script>
 
 </body>
