@@ -1685,3 +1685,127 @@ max.cart-total-value {
     align-items: flex-start;
   }
 }
+/* Desktop default */
+.org-mobile{ display:none; }
+.org-desktop{ display:block; }
+
+/* Mobile layout */
+@media (max-width: 760px){
+  .org-desktop{ display:none; }
+  .org-mobile{ display:block; }
+
+  .org-svg{
+    padding: 14px;
+  }
+
+  .org-mobile{
+    margin-top: 10px;
+  }
+
+  .org-m-title{
+    margin: 18px 0 10px;
+    font-size: 16px;
+    color: #0f2f1f;
+  }
+
+  .org-m-node{
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(31,138,69,0.22);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+  }
+
+  .org-m-node.top{
+    text-align: center;
+  }
+
+  .org-m-node.small{
+    padding: 10px 12px;
+    border-radius: 14px;
+    box-shadow: none;
+    background: rgba(255,255,255,0.65);
+  }
+
+  .n-name{
+    font-weight: 800;
+    font-size: 16px;
+    color: #0f2f1f;
+  }
+
+  .n-role{
+    margin-top: 3px;
+    font-size: 13px;
+    color: #3f6f55;
+  }
+
+  .org-m-connector{
+    height: 14px;
+  }
+
+  .org-m-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .org-m-card{
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(31,138,69,0.14);
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  .org-m-sub{
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+  }
+}
+@media (max-width: 760px){
+  .org-acc{
+    display: grid;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .org-acc-item{
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(31,138,69,0.14);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .org-acc-sum{
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 14px 14px;
+    font-weight: 800;
+    color: #0f2f1f;
+  }
+
+  /* scoate markerul default */
+  .org-acc-sum::-webkit-details-marker{ display:none; }
+
+  .org-acc-chevron{
+    transition: transform .2s ease;
+    opacity: 0.8;
+  }
+
+  details[open] .org-acc-chevron{
+    transform: rotate(180deg);
+  }
+
+  .org-acc-body{
+    padding: 0 14px 14px 14px;
+    display: grid;
+    gap: 10px;
+  }
+}

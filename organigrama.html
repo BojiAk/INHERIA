@@ -53,8 +53,8 @@
     <div class="org-svg">
   <section id="organigrama" class="org-wrap">
 
-  <div class="org-svg">
-    <!-- SVG START -->
+  <div class="org-svg org-desktop">
+  <!-- SVG START -->
     <svg viewBox="0 0 1400 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Organigrama INHERIA">
       <defs>
         <style>
@@ -152,23 +152,133 @@
       <text class="role" x="1250" y="336" text-anchor="middle">Relații cu clienții</text>
     </svg>
     <!-- SVG END -->
+</div>
+
+<div class="org-mobile">
+
+  <div class="org-m-node top">
+    <div class="n-name">Denisa</div>
+    <div class="n-role">Director Principal (CEO)</div>
   </div>
-</section>
 
-    </div>
+  <div class="org-m-connector"></div>
 
-  </main>
+  <div class="org-m-node top">
+    <div class="n-name">Larisa</div>
+    <div class="n-role">Director Adjunct</div>
+  </div>
 
- <footer class="footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> 2026 INHERIA - Business Plan</p>
-      <div class="footer-links">
-        <a href="feedback.html">Feedback</a>
-        <a href="produse.html">Produse</a>
-        <a href="contact.html">Contact</a>
+  <h3 class="org-m-title">Departamente</h3>
+
+  <div class="org-acc">
+
+    <details class="org-acc-item">
+      <summary class="org-acc-sum">
+        <span>Financiar</span>
+        <span class="org-acc-chevron">▾</span>
+      </summary>
+
+      <div class="org-acc-body">
+        <div class="org-m-node">
+          <div class="n-name">Miriam</div>
+          <div class="n-role">Manager financiar / contabil</div>
+        </div>
+
+        <div class="org-m-node small">
+          <div class="n-name">Marta</div>
+          <div class="n-role">Analist financiar</div>
+        </div>
       </div>
-    </div>
+    </details>
+
+    <details class="org-acc-item">
+      <summary class="org-acc-sum">
+        <span>Marketing & Branding</span>
+        <span class="org-acc-chevron">▾</span>
+      </summary>
+
+      <div class="org-acc-body">
+        <div class="org-m-node">
+          <div class="n-name">Ligia</div>
+          <div class="n-role">Manager marketing &amp; branding</div>
+        </div>
+
+        <div class="org-m-node small">
+          <div class="n-name">Louisa</div>
+          <div class="n-role">Specialist social &amp; publicitate</div>
+        </div>
+
+        <div class="org-m-node small">
+          <div class="n-name">Rebeca</div>
+          <div class="n-role">Designer grafic &amp; content creator</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="org-acc-item">
+      <summary class="org-acc-sum">
+        <span>IT & Digital</span>
+        <span class="org-acc-chevron">▾</span>
+      </summary>
+
+      <div class="org-acc-body">
+        <div class="org-m-node">
+          <div class="n-name">Alex</div>
+          <div class="n-role">Manager IT &amp; Digital</div>
+        </div>
+
+        <div class="org-m-node small">
+          <div class="n-name">Gabriel</div>
+          <div class="n-role">Specialist IT</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="org-acc-item">
+      <summary class="org-acc-sum">
+        <span>Produse & Inovație</span>
+        <span class="org-acc-chevron">▾</span>
+      </summary>
+
+      <div class="org-acc-body">
+        <div class="org-m-node">
+          <div class="n-name">Alexandra</div>
+          <div class="n-role">Manager produse &amp; inovație</div>
+        </div>
+
+        <div class="org-m-node small">
+          <div class="n-name">Corina</div>
+          <div class="n-role">Specialist cercetare &amp; personalizare</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="org-acc-item">
+      <summary class="org-acc-sum">
+        <span>Relații cu clienții</span>
+        <span class="org-acc-chevron">▾</span>
+      </summary>
+
+      <div class="org-acc-body">
+        <div class="org-m-node">
+          <div class="n-name">Andrei</div>
+          <div class="n-role">Relații cu clienții</div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</div>
+
   </footer>
+<script>
+  document.querySelectorAll('.org-acc-item').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      document.querySelectorAll('.org-acc-item').forEach(o => { if (o !== d) o.open = false; });
+    });
+  });
+</script>
 
 </body>
 </html>
