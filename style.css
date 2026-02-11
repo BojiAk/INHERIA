@@ -1,3 +1,18 @@
+/* === FIX FOOTER JOS PE PAGINA ORGANIGRAMA === */
+html, body {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 :root{
   --bg: #f4faf6;
   --bg2:#ecf6f0;
